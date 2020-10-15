@@ -16,17 +16,17 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 class DataParser():
     def __init__(self, batch_size_train):
         #
-        self.train_file = '/home/liu/chenhaoran/datasets/tamper_result'
-        self.double_edge_file = '/home/liu/chenhaoran/datasets/ground_truth_result'
-
+        self.train_file = '/media/liu/File/debug_data/tamper_result'
+        self.double_edge_file = '/media/liu/File/debug_data/ground_truth_result'
+        #
         # self.train_file = '/media/liu/File/8_20_dataset_after_divide/train_dataset_train_percent_0.80@8_20'
         # self.double_edge_file = '/media/liu/File/8_20_dataset_after_divide/train_gt_train_percent_0.80@8_20'
 
-        # # after resize splicing data
+        # after resize splicing data
         # self.train_file = '/media/liu/File/Sp_320_dataset/tamper_result_320'
         # self.double_edge_file = '/media/liu/File/Sp_320_dataset/ground_truth_result_320'
         # sp_data_flag = True
-        #
+
 
 
 
@@ -40,12 +40,12 @@ class DataParser():
             temp = temp.replace('jpg', 'bmp')
             self.double_edge_list.append(temp)
 
-        # for item in self.train_list:
-        #     temp = item.replace('poisson', 'Gt')
-        #     temp = temp.replace('Default','Gt')
-        #     temp = temp.replace('png','bmp')
-        #     temp = temp.replace('jpg', 'bmp')
-        #     self.double_edge_list.append(temp)
+        for item in self.train_list:
+            temp = item.replace('poisson', 'Gt')
+            temp = temp.replace('Default','Gt')
+            temp = temp.replace('png','bmp')
+            temp = temp.replace('jpg', 'bmp')
+            self.double_edge_list.append(temp)
 
 
         self.ground_list = []
@@ -119,7 +119,6 @@ class DataParser():
                 im = Image.open(self.X_train[index])
                 dou_path = os.path.join(self.double_edge_file, self.Y_train[index].split('/')[-1])
                 dou_em = Image.open(dou_path)
-
                 # 在这里获取8张图，从左上角按照顺时针顺序,返回的是一个长度为8的列表
                 relation_8_map = gen_8_map(dou_em)
                 for i in range(8):
